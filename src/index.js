@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import printMe from './print.js';
+import $ from 'jquery';
 
 function getComponent() {
 	// return import(/* webpackChunkName: "lodash" */ 'lodash').then( _ => {
@@ -10,15 +11,8 @@ function getComponent() {
 		return element;
 }
 
-function getBtn(){
-	var element = document.createElement('buttom');
-	element.innerHTML = _.join(['click','click2']);
-	return element
-}
+$("body").append('Some text');
+
 printMe();
 
-// getComponent().then(component => {
-// 	document.body.appendChild(component);
-// })
 document.body.appendChild(getComponent());
-document.body.appendChild(getBtn());

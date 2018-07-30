@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -7,21 +8,32 @@ var getHtmlConfig = function(name){
 		template: './src/view/'+name+'.html',
 		filename: 'view/'+name+'.html',
 		inject: true,
-		hash: true
+		hash: true,
+		chunks: ['common', name]
 	}
 }
 
 module.exports = {
 	entry: {
-		app: './src/index.js'
+		index: './src/index.js',
+		login: './src/login.js',
+		vendor: [
+			'lodash'
+		]
 	},
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin(getHtmlConfig('index')),
-		new HtmlWebpackPlugin(getHtmlConfig('login'))
+		new HtmlWebpackPlugin(getHtmlConfig('login')),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor'
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+	        name: 'manifest'
+	    })
 	],
 	output: {
-		filename: '[name].bundle.js',
+		filename: '[name].[chunkhash].js',
 		path: path.resolve(__dirname, 'dist')
 	}
 }
