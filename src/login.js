@@ -1,9 +1,3 @@
 import _ from 'lodash';
-
-function getBtn(){
-	var element = document.createElement('buttom');
-	element.innerHTML = _.join(['click','click2']);
-	return element
-}
-
-document.body.appendChild(getBtn());
+import $ from 'jquery';
+$('#context').html(_.join(['click4','click2']));

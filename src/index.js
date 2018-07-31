@@ -11,8 +11,7 @@ function getComponent() {
 		return element;
 }
 
-$("body").append('Some text');
+$("#context").append('Some textc');
 
 printMe();
-
 document.body.appendChild(getComponent());
