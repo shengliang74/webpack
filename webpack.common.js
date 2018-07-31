@@ -9,27 +9,25 @@ var getHtmlConfig = function(name){
 		filename: 'view/'+name+'.html',
 		inject: true,
 		hash: true,
-		chunks: ['common', name]
+		chunks: ['manifest', 'vendor', name]
 	}
 }
 
 module.exports = {
 	entry: {
 		index: './src/index.js',
-		login: './src/login.js',
-		vendor: [
-			'lodash'
-		]
+		login: './src/login.js'
 	},
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin(getHtmlConfig('index')),
 		new HtmlWebpackPlugin(getHtmlConfig('login')),
 		new webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor'
-		}),
-		new webpack.optimize.CommonsChunkPlugin({
 	        name: 'manifest'
+	    }),
+	    new webpack.ProvidePlugin({
+	    	_: 'lodash',
+	    	$: 'jquery'
 	    })
 	],
 	output: {
