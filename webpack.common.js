@@ -22,6 +22,17 @@ module.exports = {
 			'jquery'
 		]
 	},
+	module: {
+		rules:[
+			{
+				test:/\.css$/,
+				use:[
+					'style-loader',
+					'css-loader'
+				]
+			}
+		]
+	},
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new HtmlWebpackPlugin(getHtmlConfig('index')),

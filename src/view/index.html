@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<%= require('html-loader!./layout/html-header.html')%>
+<%= require('html-loader!./layout/title.html')%>
 <body>
-	<div id="context">aaaa</div>
+	<%= require('html-loader!./layout/header.html')%>
+	<div id="context">context</div>
+	<%= require('html-loader!./layout/footer.html')%>
 </body>
 </html>

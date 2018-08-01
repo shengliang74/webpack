@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import printMe from './print.js';
+import header from './js/layout/header.js';
 import $ from 'jquery';
+import './css/normalize.css';
 
 function getComponent() {
 	// return import(/* webpackChunkName: "lodash" */ 'lodash').then( _ => {

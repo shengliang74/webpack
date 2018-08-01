@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<%= require('html-loader!./layout/html-header.html')%>
+<%= require('html-loader!./layout/title.html')%>
 <body>
+	<%= require('html-loader!./layout/header.html')%>
 	<div id="context">login</div>
+	<%= require('html-loader!./templates/module1/module1.html')%>
+	<%= require('html-loader!./layout/footer.html')%>
 </body>
 </html>
