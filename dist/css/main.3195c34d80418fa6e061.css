@@ -1,0 +1,7 @@
+.hello {
+    width: 100px;
+    height: 100px;
+    background: url(img/sl.jpg?db0665a5cd77f1a8b3f6a2776b2b67b6);
+    /* background: url('./th.jpg'); */
+    color: red;
+}
