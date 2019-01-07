@@ -100,7 +100,8 @@ module.exports = {
         new CleanWebpackPlugin(['dist']),
         //更新html文件的引用js和css
         new HtmlWebpackPlugin({
-            title: "Output"
+            title: "Output",
+            template:"index.html"
         }),
         //new webpack.HashedModuleIdsPlugin(), //webpack4的mode模式已包含此插件
         new ManifestPlugin(), //提取公共manifest
