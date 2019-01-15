@@ -3,6 +3,9 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
     mode: 'development',
+    output: {
+        filename: '[name].js'
+    },
     module:{
         rules: [
             {
@@ -15,7 +18,7 @@ module.exports = merge(common, {
         ]
     },
     devtool: 'cheap-module-source-map',
-    devServer: {
-        contentBase: './dist'
-    }
+    // devServer: {
+    //     contentBase: './dist'
+    // }
 })

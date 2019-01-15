@@ -1,9 +1,11 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
+var compiler = null;
 (function(){
     var webpack = require('webpack');
-    var webpackConfig = require('./webpack.config.js');
+    var webpackConfig = require('./webpack.dev.js');
     webpackConfig.entry.app = ['webpack-hot-middleware/client', webpackConfig.entry.app];
     webpackConfig.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
@@ -11,7 +13,7 @@ const app = express();
         new webpack.NoEmitOnErrorsPlugin()
     )
 
-    var compiler = webpack(webpackConfig);
+    compiler = webpack(webpackConfig);
 
     app.use(require('webpack-dev-middleware')(compiler,{
         noInfo: true,
@@ -23,7 +25,51 @@ const app = express();
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + '/index.html');
-  });
+});
+
+// app.get("/index2", function(req, res) {
+//     res.sendFile(__dirname + '/index2.html');
+// });
+
+app.get("/book1", function(req, res) {
+    res.sendFile(__dirname + '/src/pages/book1/book1.html');
+});
+
+// 路由
+app.get('/:viewname?', function(req, res, next) {
+    
+    // var viewname = req.params.viewname 
+    //     ? req.params.viewname + '.html' 
+    //     : 'index.html';
+    // var filepath = path.join(compiler.outputPath, viewname);
+    
+    // 使用webpack提供的outputFileSystem
+    // compiler.outputFileSystem.readFile(filepath, function(err, result) {
+    //     if (err) {
+    //         // something error
+    //         return next(err);
+    //     }
+    //     res.set('content-type', 'text/html');
+    //     res.send(result);
+    //     res.end();
+    // });
+
+    var viewname = req.params.viewname 
+        ? req.params.viewname + '.html' 
+        : 'index.html';
+    console.log(viewname,"viewname");
+    var filepath = path.join(compiler.outputPath, viewname);
+    console.log(filepath, "filepath");
+    compiler.outputFileSystem.readFile(filepath, function(err, result) {
+        if (err) {
+            // something error
+            return next(err);
+        }
+        res.set('content-type', 'text/html');
+        res.send(result);
+        res.end();
+    });
+});
 
 app.listen(3001, function(){
     console.log("Example app listening on port 3000");

@@ -1,22 +1,45 @@
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ManifestPlugin = require('webpack-manifest-plugin');
 
+console.log(process.env.NODE_ENV);
+console.log(process.env.PORT_TYPE);
+// const pages = [];
+// const entries = {}; 
+// (function(){
+//     // 定义存放html页面的文件夹路径
+//     let pagePath = path.join(__dirname, "./src/pages");
+//     // 获取pagePath路径下的所有文件
+//     let paths = fs.readdirSync(pagePath);
+//     paths.forEach(page => {
+//         pages.push(new HtmlWebpackPlugin({
+//             filename: `${page}.html`,
+//             template: path.resolve(__dirname, `./src/pages/${page}/${page}.html`),
+//             chunks: [page, 'commons', 'vendor', 'manifest'], // 配置生成的html引入的公共代码块 引入顺序从右至左
+//             favicon: path.resolve(__dirname, './src/assets/img/th.jpg')
+//         }))
+//         entries[page] = path.resolve(__dirname, `./src/pages/${page}/${page}.js`);
+//     })
+// })()
+
+// entries['vendor'] = [
+//     'es6-promise',
+//     'lodash'
+// ];
+
 module.exports = {
     entry: {
-        app: './src/index.js',
-        another: './src/another-moudle.js',
-        vendor: [
-            'es6-promise',
-            'lodash'
-        ]
+        'app': './src/index.js',
+        'another': './src/another-moudle.js',
+        'vendor':['es6-promise','lodash']
     },
     output: {
-      filename: '[name].[chunkhash].bundle.js',
+      filename: '[name].[chunkhash].js',
       //代码分离之动态导入
-    //   chunkFilename: '[name].bundle.js',
+      //chunkFilename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
     },
     resolve: {
@@ -82,6 +105,11 @@ module.exports = {
                 }
               }
           },
+          {
+            test: /\.js$/,
+            include: path.resolve(__dirname, "src"),
+            loader: "babel-loader"
+          },
           //将jquery暴露至全局使浏览器window.$可以使用
         //   {
         //     test: require.resolve('jquery'),
@@ -98,10 +126,17 @@ module.exports = {
     plugins: [
         //清空dist文件
         new CleanWebpackPlugin(['dist']),
+        // ...pages,
         //更新html文件的引用js和css
         new HtmlWebpackPlugin({
-            title: "Output",
-            template:"index.html"
+            template:"index.html",
+            excludeChunks: ['another']
+        }),
+        //暴露多个模块
+        new HtmlWebpackPlugin({
+            filename:"index2.html",
+            template:"index2.html",
+            chunks: ['another','vendor']
         }),
         //new webpack.HashedModuleIdsPlugin(), //webpack4的mode模式已包含此插件
         new ManifestPlugin(), //提取公共manifest

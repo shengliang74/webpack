@@ -15,14 +15,17 @@
     "watch": "webpack --watch",
     "server": "node server.js",
     "server2": "node dev-server.js",
-    "server3": "node hot-dev-server.js"
+    "server3": "cross-env NODE_ENV=production PORT_TYPE=qq node hot-dev-server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^1.0.0",
     "console-stamp": "^0.2.6",
+    "cross-env": "^5.2.0",
     "css-loader": "^2.1.0",
     "expose-loader": "^0.7.5",
     "express": "^4.12.3",
@@ -46,6 +49,8 @@
   },
   "dependencies": {
     "es6-promise": "^4.2.5",
+    "fs": "0.0.1-security",
+    "handlebars": "^4.0.12",
     "jquery": "^3.3.1",
     "lodash": "^4.17.5"
   }
