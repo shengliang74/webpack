@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
-  "sideEffects": [
-    "*.css"
-  ],
   "scripts": {
     "dev": "webpack",
     "test": "webpack --config webpack.config.js",

@@ -6,7 +6,10 @@ var compiler = null;
 (function(){
     var webpack = require('webpack');
     var webpackConfig = require('./webpack.dev.js');
-    webpackConfig.entry.app = ['webpack-hot-middleware/client', webpackConfig.entry.app];
+    var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
+
+    webpackConfig.entry.bookone = [hotMiddlewareScript, webpackConfig.entry.bookone];
+    webpackConfig.entry.booktwo = [hotMiddlewareScript, webpackConfig.entry.booktwo];
     webpackConfig.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
         // Use NoErrorsPlugin for webpack 1.x
@@ -58,6 +61,7 @@ app.get('/:viewname?', function(req, res, next) {
         ? req.params.viewname + '.html' 
         : 'index.html';
     console.log(viewname,"viewname");
+    viewname = "book2.html";
     var filepath = path.join(compiler.outputPath, viewname);
     console.log(filepath, "filepath");
     compiler.outputFileSystem.readFile(filepath, function(err, result) {
@@ -66,6 +70,7 @@ app.get('/:viewname?', function(req, res, next) {
             return next(err);
         }
         res.set('content-type', 'text/html');
+        console.log(result, "aaaaaaaaaaaaaaaaaaaa");
         res.send(result);
         res.end();
     });
