@@ -7,7 +7,7 @@ console.log(
 
 function component() {
     console.log("fffmmmsskkk");
-    $("#app").html("<div class='app'>dddn顶dddd顶顶顶</div>");
+    $("#app").html("<div class='app'>顶dddd顶顶顶</div>");
     // $(".sl").click(function(){
     //   console.log("nnnnnnnnnnnn")
     // });

@@ -33,8 +33,8 @@ console.log(process.env.PORT_TYPE);
 
 module.exports = {
     entry: {
-        'bookone': './src/pages/book1/book1.js',
-        'booktwo': './src/pages/book2/book2.js',
+        'book1': './src/pages/book1/book1.js',
+        'book2': './src/pages/book2/book2.js',
         'vendor':['es6-promise','lodash']
     },
     output: {
@@ -130,14 +130,15 @@ module.exports = {
         // ...pages,
         //更新html文件的引用js和css
         new HtmlWebpackPlugin({
+            filename: "book1.html",
             template: path.resolve(__dirname, "./src/pages/book1/book1.html"),
-            excludeChunks: ['booktwo']
+            excludeChunks: ['book2']
         }),
         //暴露多个模块
         new HtmlWebpackPlugin({
             filename:"book2.html",
             template: path.resolve(__dirname, "./src/pages/book2/book2.html"),
-            excludeChunks: ['bookone']         
+            excludeChunks: ['book1']         
             // chunks: ['another','vendor']
         }),
         //new webpack.HashedModuleIdsPlugin(), //webpack4的mode模式已包含此插件

@@ -8,8 +8,8 @@ var compiler = null;
     var webpackConfig = require('./webpack.dev.js');
     var hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
 
-    webpackConfig.entry.bookone = [hotMiddlewareScript, webpackConfig.entry.bookone];
-    webpackConfig.entry.booktwo = [hotMiddlewareScript, webpackConfig.entry.booktwo];
+    webpackConfig.entry.book1 = [hotMiddlewareScript, webpackConfig.entry.book1];
+    webpackConfig.entry.book2 = [hotMiddlewareScript, webpackConfig.entry.book2];
     webpackConfig.plugins.push(
         new webpack.HotModuleReplacementPlugin(),
         // Use NoErrorsPlugin for webpack 1.x
@@ -26,17 +26,17 @@ var compiler = null;
     app.use(require('webpack-hot-middleware')(compiler,{ heartbeat: 5000 }));
 })()
 
-app.get("/", function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-});
+// app.get("/", function(req, res) {
+//     res.sendFile(__dirname + '/index.html');
+// });
 
 // app.get("/index2", function(req, res) {
 //     res.sendFile(__dirname + '/index2.html');
 // });
 
-app.get("/book1", function(req, res) {
-    res.sendFile(__dirname + '/src/pages/book1/book1.html');
-});
+// app.get("/book1", function(req, res) {
+//     res.sendFile(__dirname + '/book1.html');
+// });
 
 // 路由
 app.get('/:viewname?', function(req, res, next) {
@@ -61,7 +61,7 @@ app.get('/:viewname?', function(req, res, next) {
         ? req.params.viewname + '.html' 
         : 'index.html';
     console.log(viewname,"viewname");
-    viewname = "book2.html";
+    // viewname = "book2.html";
     var filepath = path.join(compiler.outputPath, viewname);
     console.log(filepath, "filepath");
     compiler.outputFileSystem.readFile(filepath, function(err, result) {
@@ -70,7 +70,6 @@ app.get('/:viewname?', function(req, res, next) {
             return next(err);
         }
         res.set('content-type', 'text/html');
-        console.log(result, "aaaaaaaaaaaaaaaaaaaa");
         res.send(result);
         res.end();
     });
