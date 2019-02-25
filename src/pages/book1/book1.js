@@ -23,9 +23,22 @@ function component() {
   "kids": [{"name": "Jimmy", "age": "132"}, {"name": "Sally", "age": "4"}]};
   var result = template(data);
   $('.right').append(result);
-  // $(".sl").click(function(){
-  //   console.log("nnnnnnnnnnnn")
-  // });
+  $('.salesQuantity').click(function(){
+    console.log(window.location);
+    location.hash = "#/salesquantity";
+  })
+  $(".getSomething").click(function(){
+    $.ajax({
+      type: "get",
+      url: '/jquery/3.3.1/jquery.js',
+      success: function(e){
+        console.log(e);
+      },
+      error: function(e){
+        console.log(e);
+      }
+    })
+  })
   //代码分离之动态导入
   // function test(){
   //     return import(/*webpackChunkName: "lodash"*/ 'lodash').then(_=>{

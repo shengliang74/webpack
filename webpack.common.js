@@ -130,12 +130,14 @@ module.exports = {
         // ...pages,
         //更新html文件的引用js和css
         new HtmlWebpackPlugin({
+            favicon: path.resolve(__dirname, "./src/assets/img/th.jpg"),
             filename: "book1.html",
             template: path.resolve(__dirname, "./src/pages/book1/book1.html"),
             excludeChunks: ['book2']
         }),
         //暴露多个模块
         new HtmlWebpackPlugin({
+            favicon: path.resolve(__dirname, "./src/assets/img/th.jpg"),            
             filename:"book2.html",
             template: path.resolve(__dirname, "./src/pages/book2/book2.html"),
             excludeChunks: ['book1']         

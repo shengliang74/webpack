@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const proxy = require('http-proxy-middleware');
 
 var compiler = null;
 (function(){
@@ -74,6 +75,9 @@ app.get('/:viewname?', function(req, res, next) {
         res.end();
     });
 });
+
+//代理
+app.use('/jquery', proxy({ target: 'https://cdn.bootcss.com', changeOrigin: true }));
 
 app.listen(3001, function(){
     console.log("Example app listening on port 3000");
